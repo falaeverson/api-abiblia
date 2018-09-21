@@ -17,7 +17,7 @@ public class Exception extends RuntimeException {
 
 	public Exception(ExceptionsMessagesEnum exeptionsMessagesEnum) {
 
-		super(exeptionsMessagesEnum.getMensagem());
+		super(exeptionsMessagesEnum.getMessage());
 		
 		this.msgEnum = exeptionsMessagesEnum;
 
@@ -34,13 +34,6 @@ public class Exception extends RuntimeException {
 
 		if (expression) {
 			ExceptionsMessagesEnum.raise(textoDinamico);
-		}
-	}
-
-	public static void checkThrowLogError(boolean expression, ExceptionsMessagesEnum ExceptionsMessagesEnum, String... textoLogErro) throws Exception {
-
-		if (expression) {
-			ExceptionsMessagesEnum.raiseLogError(textoLogErro);
 		}
 	}
 

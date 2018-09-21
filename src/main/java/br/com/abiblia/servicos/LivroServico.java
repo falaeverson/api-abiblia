@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.reflect.TypeToken;
 
+import static br.com.abiblia.exception.Exception.checkThrow;
+import static br.com.abiblia.exception.ExceptionsMessagesEnum.GLOBAL_NOT_FOUND_LIVRO_NAO_EXISTE;
+
 import br.com.abiblia.entidades.Livro;
-import br.com.abiblia.exception.Exception;
-import br.com.abiblia.exception.ExceptionsMessagesEnum;
 import br.com.abiblia.repositorios.LivroRepositorio;
 import br.com.abiblia.responses.LivroResponse;
 import br.com.abiblia.responses.PageLivroResponse;
@@ -39,7 +40,7 @@ public class LivroServico {
 
 		Optional<Livro> livro = livroRepositorio.findById(id);
 
-		Exception.checkThrow( !livro.isPresent() , ExceptionsMessagesEnum.GLOBAL_NOT_FOUND_LIVRO_NAO_EXISTE, id.toString());
+		checkThrow( !livro.isPresent() , GLOBAL_NOT_FOUND_LIVRO_NAO_EXISTE, id.toString());
 		
 		LivroResponse response = GenericConvert.convertModelMapper(livro.get(), LivroResponse.class);
 		

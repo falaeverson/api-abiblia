@@ -1,16 +1,12 @@
 
 package br.com.abiblia.exception;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.NOT_IMPLEMENTED;
-import static org.springframework.http.HttpStatus.PRECONDITION_REQUIRED;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.HttpStatus.*;
 
 import br.com.twsoftware.alfred.object.Objeto;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <b>Os Erros podem ser das seguintes naturezas:</b><br/>
@@ -37,7 +33,7 @@ import lombok.Getter;
  * 
  * @author Everson Teixeira <tx.everson@gmail.com>
  */
-
+@Slf4j
 public enum ExceptionsMessagesEnum {
 	
 	// Exemplos
@@ -49,26 +45,27 @@ public enum ExceptionsMessagesEnum {
 	GLOBAL_ERRO_FORBINDEEN(FORBIDDEN.value(), "{}", ForbiddenException.class),
 
 	// Mensagens
-	GLOBAL_NOT_FOUND_LIVRO_NAO_EXISTE(NOT_FOUND.value(), "O livro solicitado não existe. ID: {}", NotFoundException.class),
-	
-	;
+	GLOBAL_RECURSO_NAO_DISPONIVEL(NOT_FOUND.value(), "Recurso não disponível", NotFoundException.class),
+	GLOBAL_BASE_NAO_DISPONIVEL(NOT_FOUND.value(), "Base não disponível", NotFoundException.class),
+	GLOBAL_NOT_FOUND_LIVRO_NAO_EXISTE(NOT_FOUND.value(), "O livro solicitado não existe. ID: {}", NotFoundException.class);
 	
 	@Getter
-	private Integer codigo;
+	private Integer httpCode;
 
 	@Getter
-	private String mensagem;
+	@Setter
+	private String message;
 
-	private String mensagemPadrao;
+	private String defaultMessage;
 
 	@Getter
 	private Class<? extends Exception> klass;
 
-	ExceptionsMessagesEnum(int codigo, String mensagem, Class<? extends Exception> klass) {
-		this.codigo = codigo;
-		this.mensagemPadrao = mensagem;
+	ExceptionsMessagesEnum(int httpCode, String defaultMessage, Class<? extends Exception> klass) {
+		this.httpCode = httpCode;
+		this.defaultMessage = defaultMessage;
 		this.klass = klass;
-		this.mensagem = Objeto.isBlank(this.mensagem) ? this.mensagemPadrao.replace("{}", "") : this.mensagem;
+		this.message = Objeto.isBlank(this.message) ? this.defaultMessage.replace("{}", "") : this.message;
 	}
 
 	/**
@@ -78,9 +75,9 @@ public enum ExceptionsMessagesEnum {
 	 */
 	public void raise() {
 
-		System.out.println("Raising error: {}");
+		log.debug("Raising error: {}", this);
 
-		this.mensagem = Objeto.isBlank(this.mensagem) ? this.mensagemPadrao.replace("{}", "") : this.mensagem;
+		this.message = Objeto.isBlank(this.message) ? this.defaultMessage.replace("{}", "") : this.message;
 
 		if (this.badRequest()) {
 
@@ -130,45 +127,24 @@ public enum ExceptionsMessagesEnum {
 	 */
 	public void raise(String... textoDinamico) {
 
-		if (Objeto.notBlank(textoDinamico)) {
+		if (textoDinamico != null && textoDinamico.length > 0) {
 
 			Integer count = 0;
-			String mensagemBase = this.mensagemPadrao;
+			String mensagemBase = this.defaultMessage;
 			while (mensagemBase.contains("{}")) {
 
 				if (textoDinamico.length == 1) {
 
-					this.mensagem = this.mensagemPadrao.replace("{}", textoDinamico[count]);
-					mensagemBase = this.mensagem;
+					this.message = this.defaultMessage.replace("{}", textoDinamico[count]);
+					mensagemBase = this.message;
 				} else {
 
-					this.mensagem = this.mensagemPadrao.replaceFirst("\\{\\}", textoDinamico[count]);
-					mensagemBase = this.mensagem;
+					this.message = this.defaultMessage.replaceFirst("\\{\\}", textoDinamico[count]);
+					mensagemBase = this.message;
 				}
 				count++;
 			}
 		}
-		raise();
-	}
-
-	/**
-	 * 
-	 * Método responsável pelo disparo da exception com log de erro.
-	 * 
-	 * @param textoErro Texto a ser impresso no log
-	 * 
-	 * @author Everson Teixeira <tx.everson@gmail.com>
-	 * 
-	 */
-	public void raiseLogError(String... textoErro) {
-
-		if (Objeto.notBlank(textoErro)) {
-
-			for (String erro : textoErro) {
-				System.out.println(erro);
-			}
-		}
-
 		raise();
 	}
 
@@ -179,7 +155,7 @@ public enum ExceptionsMessagesEnum {
 	 */
 	private Boolean badRequest() {
 
-		return this.codigo == BAD_REQUEST.value();
+		return this.httpCode == BAD_REQUEST.value();
 	}
 
 	/**
@@ -189,7 +165,7 @@ public enum ExceptionsMessagesEnum {
 	 */
 	private Boolean unauthorized() {
 
-		return this.codigo == UNAUTHORIZED.value();
+		return this.httpCode == UNAUTHORIZED.value();
 	}
 
 	/**
@@ -199,7 +175,7 @@ public enum ExceptionsMessagesEnum {
 	 */
 	private Boolean forbidden() {
 
-		return this.codigo == FORBIDDEN.value();
+		return this.httpCode == FORBIDDEN.value();
 	}
 
 	/**
@@ -209,7 +185,7 @@ public enum ExceptionsMessagesEnum {
 	 */
 	private Boolean notFound() {
 
-		return this.codigo == NOT_FOUND.value();
+		return this.httpCode == NOT_FOUND.value();
 	}
 
 	/**
@@ -219,7 +195,7 @@ public enum ExceptionsMessagesEnum {
 	 */
 	private Boolean preconditionRequired() {
 
-		return this.codigo == PRECONDITION_REQUIRED.value();
+		return this.httpCode == PRECONDITION_REQUIRED.value();
 	}
 
 	/**
@@ -229,7 +205,7 @@ public enum ExceptionsMessagesEnum {
 	 */
 	private Boolean serverError() {
 
-		return this.codigo == INTERNAL_SERVER_ERROR.value();
+		return this.httpCode == INTERNAL_SERVER_ERROR.value();
 	}
 
 	/**
@@ -239,7 +215,7 @@ public enum ExceptionsMessagesEnum {
 	 */
 	private Boolean notImplemented() {
 
-		return this.codigo == NOT_IMPLEMENTED.value();
+		return this.httpCode == NOT_IMPLEMENTED.value();
 	}
 
 }
