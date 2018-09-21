@@ -19,7 +19,7 @@ public class LivroController {
 
           LivroResponse livro = new LivroResponse();
           livro.nome = "Joao";
-          livro.Sila = "JO";
+          //livro.sila = "JO";
 
           return "App rodando";
           
@@ -31,7 +31,7 @@ public class LivroController {
 
           LivroResponse livro = new LivroResponse();
           livro.nome = "OK";
-          livro.Sila = "JO";
+          //livro.sila = "JO";
 
           return livro;
           

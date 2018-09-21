@@ -34,7 +34,7 @@ public class SwaggerConfig {
  
           ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
  
-          apiInfoBuilder.title("Api-Biblia");
+          apiInfoBuilder.title("Api-aBiblia");
           apiInfoBuilder.description("Api para distribuição de serviços da bíblia");
           apiInfoBuilder.version(ConstantesRest.API_VERSION);
           //apiInfoBuilder.termsOfServiceUrl("Termo de uso: Deve ser usada para estudos.");

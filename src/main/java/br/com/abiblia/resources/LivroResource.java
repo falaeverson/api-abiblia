@@ -1,9 +1,6 @@
 package br.com.abiblia.resources;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.abiblia.entidades.Livro;
 import br.com.abiblia.requests.GenericRequest;
+import br.com.abiblia.responses.LivroResponse;
+import br.com.abiblia.responses.PageLivroResponse;
 import br.com.abiblia.servicos.LivroServico;
 import br.com.abiblia.util.ConstantesRest;
 import io.swagger.annotations.Api;
@@ -33,7 +31,7 @@ public class LivroResource {
      
      @ResponseBody
      @RequestMapping(method = RequestMethod.GET)
-     @ApiOperation(value="Lista os livros", notes="Recurso para listagem dos livros da bíblia", response = String.class)
+     @ApiOperation(value="Lista os livros", notes="Recurso para listagem dos livros da bíblia", response = PageLivroResponse.class)
      @ApiResponses({
           @ApiResponse(code=200, message="Requisição efetuada com sucesso!."),
           @ApiResponse(code=400, message="Requisição inválida."),
@@ -44,7 +42,7 @@ public class LivroResource {
           
           PageRequest pageRequest = request.pageRequest();
           
-          Page<Livro> page = livroServico.livros(pageRequest);
+          PageLivroResponse page = livroServico.livros(pageRequest);
           
           return ResponseEntity.ok(page);
 
@@ -52,7 +50,7 @@ public class LivroResource {
 
      @ResponseBody
      @RequestMapping(value = "{id}", method = RequestMethod.GET)
-     @ApiOperation(value="Consulta o livro por id", notes="Recurso para consulta de livros da bíblia", response = String.class)
+     @ApiOperation(value="Consulta o livro por id", notes="Recurso para consulta de livros da bíblia", response = LivroResponse.class)
      @ApiResponses({
           @ApiResponse(code=200, message="Requisição efetuada com sucesso!."),
           @ApiResponse(code=400, message="Requisição inválida."),
@@ -61,7 +59,7 @@ public class LivroResource {
      })
      public ResponseEntity<?> livro(@PathVariable("id") Long id){
           
-          Optional<Livro> livro = livroServico.livro(id);
+    	 LivroResponse livro = livroServico.livro(id);
           
           return ResponseEntity.ok(livro);
           

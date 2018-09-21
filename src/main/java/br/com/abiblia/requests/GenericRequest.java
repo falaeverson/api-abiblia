@@ -23,7 +23,7 @@ public class GenericRequest implements Serializable{
      
      @ApiModelProperty(value="Limite do registro na solicitação (Default = 100)", name="totalPagina", position=101)
      @Max(100)
-     private int totalPagina = 100;
+     private int totalPagina = 50;
      
      @ApiModelProperty(value="Campo para ordenação dos registros (Default = id).", name="campo", position=102)
      private String campo = "id";
