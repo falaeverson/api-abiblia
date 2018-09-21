@@ -4,12 +4,8 @@ server:
     connection-timeout: 30000
     context-path: /v2
 biblia:
-    datasource:
-        url: jdbc:mysql://${HOST_DB:localhost}:${HOST_PORT_DB:3306}/${DATA_BASE:abiblia}?useSSL=false
-        username: ${USER_DB:root}
-        password: ${USER_PASSWORD:123456}
-        testWhileIdle: true
-        validationQuery: SELECT 1
+    teste:
+        nome: EversonTestandoApplication 
 spring:
     pid:
         fail-on-write-error: false
@@ -28,23 +24,12 @@ spring:
                 hibernate.jdbc.time_zone: America/Sao_Paulo
             envers:
                 auditTableSuffix: _AUD
-swagger:
-    title: PIER Labs Dev
-    description: API para integração com Aplicações de empresas Emissoras de Cartões de Crédito
-    version: @project.version@
-    termsOfServiceUrl: http://pierlabs.io/terms/
-    contact:
-    license: Apache 2.0
-    licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html
-    exibeInternos: true
-    security.access_token: true
-    security.client_id: true
-    protocol: http
-    #host: sandbox.conductor.com.br
-
-springfox.documentation.swagger.v2.path: /swagger
-#security.basic.enabled: false
-#management.security.enabled: false
+    datasource:
+        url: jdbc:mysql://${HOST_DB:localhost}:${HOST_PORT_DB:3306}/${DATA_BASE:abiblia}?useSSL=false
+        username: ${USER_DB:root}
+        password: ${USER_PASSWORD:123456}
+        testWhileIdle: true
+        validationQuery: SELECT 1
 endpoints:
     health:
         sensitive: false
