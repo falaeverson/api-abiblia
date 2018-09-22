@@ -34,7 +34,7 @@ public class VersaoResource {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
-	@ApiOperation(value = "Lista as versões da Bíblia", notes = "Recurso para listagem das versões da Bíblia", response = Page.class)
+	@ApiOperation(value = "Lista as versões da Bíblia", notes = "Recurso para listagem das versões da Bíblia", response = PageVersaoResponse.class)
 	@ApiResponses({ @ApiResponse(code = 200, message = "Requisição efetuada com sucesso!."),
 			@ApiResponse(code = 400, message = "Requisição inválida."),
 			@ApiResponse(code = 404, message = "Recurso não encontrado."),
@@ -51,7 +51,7 @@ public class VersaoResource {
 
 	@ResponseBody
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	@ApiOperation(value = "Consulta uma versão da Bíblia", notes = "Recurso para consultar uma versão da Bíblia", response = Versao.class)
+	@ApiOperation(value = "Consulta uma versão da Bíblia", notes = "Recurso para consultar uma versão da Bíblia", response = VersaoResponse.class)
 	@ApiResponses({ @ApiResponse(code = 200, message = "Requisição efetuada com sucesso!."),
 			@ApiResponse(code = 400, message = "Requisição inválida."),
 			@ApiResponse(code = 404, message = "Recurso não encontrado."),

@@ -34,7 +34,7 @@ public class VersiculoResource {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
-	@ApiOperation(value = "Lista os versiculos da Bíblia", notes = "Recurso para listagem de todos os versiculos da Bíblia", response = Page.class)
+	@ApiOperation(value = "Lista os versiculos da Bíblia", notes = "Recurso para listagem de todos os versiculos da Bíblia", response = PageVersiculoResponse.class)
 	@ApiResponses({ @ApiResponse(code = 200, message = "Requisição efetuada com sucesso!."),
 			@ApiResponse(code = 400, message = "Requisição inválida."),
 			@ApiResponse(code = 404, message = "Recurso não encontrado."),
@@ -51,7 +51,7 @@ public class VersiculoResource {
 
 	@ResponseBody
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	@ApiOperation(value = "Consulta um versiculo da Bíblia", notes = "Recurso para consultar versiculos da Bíblia", response = Versiculo.class)
+	@ApiOperation(value = "Consulta um versiculo da Bíblia", notes = "Recurso para consultar versiculos da Bíblia", response = VersiculoResponse.class)
 	@ApiResponses({ @ApiResponse(code = 200, message = "Requisição efetuada com sucesso!."),
 			@ApiResponse(code = 400, message = "Requisição inválida."),
 			@ApiResponse(code = 404, message = "Recurso não encontrado."),
