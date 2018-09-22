@@ -47,7 +47,9 @@ public enum ExceptionsMessagesEnum {
 	// Mensagens
 	GLOBAL_RECURSO_NAO_DISPONIVEL(NOT_FOUND.value(), "Recurso não disponível", NotFoundException.class),
 	GLOBAL_BASE_NAO_DISPONIVEL(NOT_FOUND.value(), "Base não disponível", NotFoundException.class),
-	GLOBAL_NOT_FOUND_LIVRO_NAO_EXISTE(NOT_FOUND.value(), "O livro solicitado não existe. ID: {}", NotFoundException.class);
+	GLOBAL_NOT_FOUND_LIVRO_NAO_EXISTE(NOT_FOUND.value(), "O livro solicitado não existe. ID: {}", NotFoundException.class),
+	GLOBAL_NOT_FOUND_VERSICULO_NAO_EXISTE(NOT_FOUND.value(), "O versículo solicitado não existe. ID: {}", NotFoundException.class),
+	GLOBAL_NOT_FOUND_VERSAO_NAO_EXISTE(NOT_FOUND.value(), "A versão solicitado não existe. ID: {}", NotFoundException.class);
 	
 	@Getter
 	private Integer httpCode;

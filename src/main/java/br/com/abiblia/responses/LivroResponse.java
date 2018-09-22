@@ -18,19 +18,19 @@ public class LivroResponse implements Serializable {
 
 	private static final long serialVersionUID = -8053042720343828502L;
 
-	@ApiModelProperty(value="ID de identificação do livro", name="", position = 1)
+	@ApiModelProperty(value="ID de identificação do livro", name="id", position = 1)
 	public Integer id;
 
-	@ApiModelProperty(value="ID de identificação do testamento", name="", position = 2)
+	@ApiModelProperty(value="ID de identificação do testamento", name="idTestamento", position = 2)
 	public Integer idTestamento;
 	
-	@ApiModelProperty(value="Sequencia do livro na bíblia", name="", position = 4)
+	@ApiModelProperty(value="Sequencia do livro na bíblia", name="posicao", position = 3)
 	public Integer posicao;
 	
-	@ApiModelProperty(value="Nome do livro", name="nome", position = 5)
+	@ApiModelProperty(value="Nome do livro", name="nome", position = 4)
 	public String nome;
 
-	@ApiModelProperty(value="Sigla de identificaç;ao do livro", name="sigla", position = 6)
+	@ApiModelProperty(value="Sigla de identificaç;ao do livro", name="abreviacao", position = 5)
 	public String abreviacao;
 
 }

@@ -31,7 +31,7 @@ public class LivroServico {
 		Page<Livro> livros = livroRepositorio.findAll(pageRequest);
 
 		PageLivroResponse response = 
-				new PageLivroResponse(GenericConvert.convertModelMapperToPagePIER(livros, new TypeToken<List<Livro>>(){}.getType()));
+				new PageLivroResponse(GenericConvert.convertModelMapperToPagePIER(livros, new TypeToken<List<LivroResponse>>(){}.getType()));
 		
 		return response;
 	}

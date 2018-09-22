@@ -21,19 +21,20 @@ public class GenericRequest implements Serializable{
      @Min(0)
      private int pagina = 0;
      
-     @ApiModelProperty(value="Limite do registro na solicitação (Default = 100)", name="totalPagina", position=101)
-     @Max(100)
+     @ApiModelProperty(value="Limite do registro na solicitação (Default = 50)", name="totalPagina", position=101)
+     @Min(1)
+     @Max(50)
      private int totalPagina = 50;
      
-     @ApiModelProperty(value="Campo para ordenação dos registros (Default = id).", name="campo", position=102)
-     private String campo = "id";
+     @ApiModelProperty(value="Campo para ordenação dos registros (Default = id).", name="campos", position=102)
+     private String campos = "id";
      
      @ApiModelProperty(value="Direção da ordenação dos registros (Default = DESC)", name="ordem", position=103)
      private Sort.Direction ordem = Direction.DESC;
      
      public PageRequest pageRequest() {
           
-          return PageRequest.of(this.pagina, this.totalPagina, Sort.by(this.ordem, this.campo));
+          return PageRequest.of(this.pagina, this.totalPagina, Sort.by(this.ordem, this.campos));
           
      }
 }

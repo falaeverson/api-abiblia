@@ -16,28 +16,28 @@ import lombok.Data;
 @Table(name = "versiculos")
 public class Versiculo implements Serializable {
 
-     private static final long serialVersionUID = 7822540487934462144L;
+	private static final long serialVersionUID = 7822540487934462144L;
 
-     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     @Column(name = "ver_id")
-     private Long id;
-     
-     @Column(name = "ver_vrs_id")
-     private Long idVersao;
-     
-     @Column(name = "ver_tes_id")
-     private Long idTestamento;     
-     
-     @Column(name = "ver_liv_id")
-     private Long idLivro;    
-     
-     @Column(name = "ver_capitulo")
-     private Integer capitulo;    
-     
-     @Column(name = "ver_versiculo")
-     private Integer versiculoNumero;   
-     
-     @Column(name = "ver_texto")
-     private String versiculoTexto;    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ver_id")
+	private Long id;
+
+	@Column(name = "ver_vrs_id")
+	private Long idVersao;
+
+	@Column(name = "ver_tes_id")
+	private Long idTestamento;
+
+	@Column(name = "ver_liv_id")
+	private Long idLivro;
+
+	@Column(name = "ver_capitulo")
+	private Integer capitulo;
+
+	@Column(name = "ver_versiculo")
+	private Integer versiculoNumero;
+
+	@Column(name = "ver_texto")
+	private String versiculoTexto;
 }
