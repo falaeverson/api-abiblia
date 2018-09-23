@@ -30,7 +30,7 @@ public class LivroResponse implements Serializable {
 	@ApiModelProperty(value="Nome do livro", name="nome", position = 4)
 	public String nome;
 
-	@ApiModelProperty(value="Sigla de identificaç;ao do livro", name="abreviacao", position = 5)
+	@ApiModelProperty(value="Sigla de identificação do livro", name="abreviacao", position = 5)
 	public String abreviacao;
 
 }

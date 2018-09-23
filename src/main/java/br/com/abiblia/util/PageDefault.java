@@ -1,58 +1,71 @@
 package br.com.abiblia.util;
 
-import java.util.List;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import br.com.twsoftware.alfred.object.Objeto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class PageDefault<T> {
+public class PageDefault extends PageRequest {
+	
+    public static final int PAGE_DEFAULT = 0;
+    
+    public static final int LIMIT_DEFAULT = 50;
+    
+    private static final long serialVersionUID = -644380311337417661L;
 
-	@JsonInclude(Include.ALWAYS)
-	public int number;
+    @SuppressWarnings("deprecation")
+	private PageDefault(Integer page, Integer limit){
+         super(page, limit);
+    }
 
-	@JsonInclude(Include.ALWAYS)
-	public int size;
+    @SuppressWarnings("deprecation")
+	private PageDefault(Integer page, Integer limit, Sort sort){
+         super(page, limit, sort);
+    }
 
-	@JsonInclude(Include.ALWAYS)
-	public int totalPages;
+    /**
+     * Método responsável por setar os parâmetros nescessários para a solicitação de uma paginação.
+     * 
+     * @param page <br/>
+     * Indica qual página deverá ser retornada; <br/>
+     * Caso não seja informado nenhum valor para esse parâmetro, será assumido como default 0. 
+     * @param limit <br/>
+     * Indica o limite de registros a ser exibido por página; <br/>
+     * Caso não seja informado nenhum valor para esse parâmetro ou o valor informado seja maior que 50, será assumido como default 50.
+     * 
+     * @return {@link PageablePIER}
+     * 
+     */
+    public static PageDefault setPageable(Integer page, Integer limit) {
 
-	@JsonInclude(Include.ALWAYS)
-	public int numberOfElements;
+         if (Objeto.isBlank(page)) {
+              page = 0;
+         }
 
-	@JsonInclude(Include.ALWAYS)
-	public long totalElements;
+         if (Objeto.isBlank(limit) || limit >= LIMIT_DEFAULT) {
+              limit = LIMIT_DEFAULT;
+         }
 
-	@JsonInclude(Include.ALWAYS)
-	public boolean firstPage;
+         return new PageDefault(page, limit);
+    }
+    
+    public static PageDefault setPageable(Integer page, Integer limit, String campos, Sort.Direction order) {
 
-	@JsonInclude(Include.ALWAYS)
-	public boolean hasPreviousPage;
+        if (Objeto.isBlank(page)) {
+             page = 0;
+        }
 
-	@JsonInclude(Include.ALWAYS)
-	public boolean hasNextPage;
+        if (Objeto.isBlank(limit) || limit >= LIMIT_DEFAULT) {
+             limit = LIMIT_DEFAULT;
+        }
+        
+        if (Objeto.notBlank(campos) ){
+            
+        	return new PageDefault(page, limit, Sort.by(order, campos));
+       }
 
-	@JsonInclude(Include.ALWAYS)
-	public boolean hasContent;
-
-	@JsonInclude(Include.ALWAYS)
-	public boolean first;
-
-	@JsonInclude(Include.ALWAYS)
-	public boolean last;
-
-	@JsonInclude(Include.ALWAYS)
-	public int nextPage;
-
-	@JsonInclude(Include.ALWAYS)
-	public int previousPage;
-
-	public List<T> content;
+        return new PageDefault(page, limit);
+   }
 
 }

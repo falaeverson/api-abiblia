@@ -1,8 +1,6 @@
 package br.com.abiblia.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.abiblia.entidades.Versiculo;
 import br.com.abiblia.requests.VersiculoRequest;
 import br.com.abiblia.responses.PageVersiculoResponse;
 import br.com.abiblia.responses.VersiculoResponse;
@@ -39,11 +36,9 @@ public class VersiculoResource {
 			@ApiResponse(code = 400, message = "Requisição inválida."),
 			@ApiResponse(code = 404, message = "Recurso não encontrado."),
 			@ApiResponse(code = 500, message = "Erro interno do sistema.") })
-	public ResponseEntity<?> versoes(@ModelAttribute(value = "GenericRequest") VersiculoRequest request) {
+	public ResponseEntity<?> versoes(@ModelAttribute(value = "VersiculoRequest") VersiculoRequest request) {
 
-		PageRequest pageRequest = request.pageRequest();
-
-		PageVersiculoResponse page = versiculoServico.versiculos(pageRequest);
+		PageVersiculoResponse page = versiculoServico.versiculos(request);
 
 		return ResponseEntity.ok(page);
 

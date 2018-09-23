@@ -79,7 +79,7 @@ public class GenericConvert {
         return model;
    }
 
-   public static <T, E> PageDefault convertModelMapperToPagePIER(Page<T> page, Type typeDestination) {
+   public static <T, E> PageDTO convertModelMapperToPagePIER(Page<T> page, Type typeDestination) {
 
         if (page != null && typeDestination != null) {
 
@@ -91,7 +91,7 @@ public class GenericConvert {
 
         return null;
    }
-   public static <T, E> PageDefault convertModelMapperToPagePIER(Page<T> page, Type typeDestination, MatchingStrategy strategy) {
+   public static <T, E> PageDTO convertModelMapperToPagePIER(Page<T> page, Type typeDestination, MatchingStrategy strategy) {
 
         if (page != null && typeDestination != null) {
 
@@ -132,7 +132,7 @@ public class GenericConvert {
 
    }
    
-   public static <T, E> PageDefault convertWithMappingToPagePIER(Page<T> page, Type typeDestination, PropertyMap<T, E> mapping) {
+   public static <T, E> PageDTO convertWithMappingToPagePIER(Page<T> page, Type typeDestination, PropertyMap<T, E> mapping) {
 
         if (page != null && typeDestination != null) {
 

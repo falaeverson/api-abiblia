@@ -5,14 +5,14 @@ import org.springframework.data.domain.Page;
 public abstract class Conversores {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static PageDefault buildPage(Page p) {
+	public static PageDTO buildPage(Page p) {
 
 		if (p == null) {
 
 			return null;
 		} else {
 
-			PageDefault pageApi = new PageDefault();
+			PageDTO pageApi = new PageDTO();
 			pageApi.setContent(p.getContent());
 			pageApi.setHasContent(p.hasContent());
 			pageApi.setNumber(p.getNumber());

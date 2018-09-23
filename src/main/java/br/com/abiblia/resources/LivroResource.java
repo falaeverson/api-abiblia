@@ -4,7 +4,6 @@ import static br.com.abiblia.exception.Exception.checkThrow;
 import static br.com.abiblia.exception.ExceptionsMessagesEnum.GLOBAL_NOT_FOUND_LIVRO_NAO_EXISTE;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.abiblia.requests.GenericRequest;
+import br.com.abiblia.requests.LivroRequest;
 import br.com.abiblia.responses.LivroResponse;
 import br.com.abiblia.responses.PageLivroResponse;
 import br.com.abiblia.servicos.LivroServico;
@@ -41,11 +40,9 @@ public class LivroResource {
 			@ApiResponse(code = 400, message = "Requisição inválida."),
 			@ApiResponse(code = 404, message = "Recurso não encontrado."),
 			@ApiResponse(code = 500, message = "Erro interno do sistema.") })
-	public ResponseEntity<?> livros(@ModelAttribute(value = "GenericRequest") GenericRequest request) {
+	public ResponseEntity<?> livros(@ModelAttribute(value = "LivroRequest") LivroRequest request) {
 
-		PageRequest pageRequest = request.pageRequest();
-
-		PageLivroResponse page = livroServico.livros(pageRequest);
+		PageLivroResponse page = livroServico.livros(request);
 
 		return ResponseEntity.ok(page);
 

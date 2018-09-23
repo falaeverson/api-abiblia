@@ -7,17 +7,19 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.google.common.reflect.TypeToken;
 
 import br.com.abiblia.entidades.Versiculo;
 import br.com.abiblia.repositorios.VersiculoRepositorio;
+import br.com.abiblia.requests.VersiculoRequest;
 import br.com.abiblia.responses.PageVersiculoResponse;
 import br.com.abiblia.responses.VersiculoResponse;
 import br.com.abiblia.util.GenericConvert;
+import br.com.abiblia.util.PageDefault;
 
 @Service
 public class VersiculoServico {
@@ -26,11 +28,13 @@ public class VersiculoServico {
 	private VersiculoRepositorio versiculoRepositorio;
 
 	@SuppressWarnings({ "unchecked", "serial" })
-	public PageVersiculoResponse versiculos(PageRequest pageRequest) {
+	public PageVersiculoResponse versiculos(VersiculoRequest request) {
 
-		Page<Versiculo> versoes = versiculoRepositorio.findAll(pageRequest);
+		Versiculo versiculo = GenericConvert.convertModelMapper(request, Versiculo.class);
 		
-		return new PageVersiculoResponse(GenericConvert.convertModelMapperToPagePIER(versoes, new TypeToken<List<Versiculo>>(){}.getType()));
+		Page<Versiculo> pageVersiculos = versiculoRepositorio.findAll(Example.of(versiculo), PageDefault.setPageable(request.getPage(), request.getLimit(), request.getCampos(), request.getOrder()));
+		
+		return new PageVersiculoResponse(GenericConvert.convertModelMapperToPagePIER(pageVersiculos, new TypeToken<List<Versiculo>>(){}.getType()));
 		
 	}
 
