@@ -1,7 +1,9 @@
 package br.com.abiblia.util;
 
+import org.junit.Ignore;
 import org.springframework.data.domain.Page;
 
+@Ignore
 public abstract class Conversores {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

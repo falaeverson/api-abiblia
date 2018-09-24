@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
+import org.junit.Ignore;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 /**
  * Custom Jackson deserializer for transforming a JSON object (using the ISO 8601 date formatwith optional time) to a JSR310 LocalDate object.
  */
+@Ignore
 public class JSR310DateTimeDeserializer extends JsonDeserializer<LocalDateTime>{
 
      public static final JSR310DateTimeDeserializer INSTANCE = new JSR310DateTimeDeserializer();

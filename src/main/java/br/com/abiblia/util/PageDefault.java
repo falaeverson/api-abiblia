@@ -1,11 +1,13 @@
 package br.com.abiblia.util;
 
+
+import org.junit.Ignore;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import br.com.twsoftware.alfred.object.Objeto;
 
-
+@Ignore
 public class PageDefault extends PageRequest {
 	
     public static final int PAGE_DEFAULT = 0;

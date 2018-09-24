@@ -6,6 +6,7 @@ import static br.com.abiblia.util.Conversores.buildPage;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 
 //import br.com.conductor.pier.util.PagePIER;
 
+@Ignore
 public class GenericConvert {
 
     public static <E, T> E convertModelMapper(T source, Class<E> typeDestination, MatchingStrategy strategy) {

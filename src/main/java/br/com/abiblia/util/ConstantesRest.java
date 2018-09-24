@@ -1,6 +1,8 @@
 package br.com.abiblia.util;
 
+import org.junit.Ignore;
 
+@Ignore
 public class ConstantesRest {
      
      public static final String API_VERSION = "1.0";
