@@ -16,7 +16,7 @@ import lombok.Data;
 @Table(name = "versiculos")
 public class Versiculo implements Serializable {
 
-	private static final long serialVersionUID = 7822540487934462144L;
+	private static final long serialVersionUID = 8111759554933854173L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

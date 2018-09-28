@@ -34,7 +34,7 @@ public class VersaoServico {
 		
 		Page<Versao> versoes = versaoRepositorio.findAll(Example.of(versao), PageDefault.setPageable(request.getPage(), request.getLimit(), request.getCampos(), request.getOrder()));
 
-		return new PageVersaoResponse(GenericConvert.convertModelMapperToPagePIER(versoes, new TypeToken<List<VersaoResponse>>(){}.getType()));
+		return new PageVersaoResponse(GenericConvert.convertModelMapperToPageDefault(versoes, new TypeToken<List<VersaoResponse>>(){}.getType()));
 		
 	}
 

@@ -16,19 +16,19 @@ import lombok.NoArgsConstructor;
 @ApiModel(description = "Classe que representa o response de versículos")
 public class VersiculoResponse implements Serializable {
 
-	private static final long serialVersionUID = -8053042720343828502L;
+	private static final long serialVersionUID = -7679538623387774339L;
 
 	@ApiModelProperty(value="ID de identificação do versículo", name="id", position = 1)
-	public Integer id;
+	public Long id;
 
 	@ApiModelProperty(value="ID de identificação da versão", name="idVersao", position = 2)
-	public Integer idVersao;
+	public Long idVersao;
 	
 	@ApiModelProperty(value="ID de identificação do testamento", name="idTestamento", position = 3)
-	public Integer idTestamento;
+	public Long idTestamento;
 
 	@ApiModelProperty(value="ID de identificação do livro", name="idLivro", position = 4)
-	public Integer idLivro;
+	public Long idLivro;
 	
 	@ApiModelProperty(value="Número do capítulo", name="capitulo", position = 5)
 	public Integer capitulo;

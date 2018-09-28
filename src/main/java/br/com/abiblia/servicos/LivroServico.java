@@ -35,7 +35,7 @@ public class LivroServico {
 		Page<Livro> livros = livroRepositorio.findAll(Example.of(livro), PageDefault.setPageable(request.getPage(), request.getLimit(), request.getCampos(), request.getOrder()));
 
 		PageLivroResponse response = 
-				new PageLivroResponse(GenericConvert.convertModelMapperToPagePIER(livros, new TypeToken<List<LivroResponse>>(){}.getType()));
+				new PageLivroResponse(GenericConvert.convertModelMapperToPageDefault(livros, new TypeToken<List<LivroResponse>>(){}.getType()));
 		
 		return response;
 	}

@@ -19,7 +19,7 @@ public class VersaoResponse implements Serializable {
 	private static final long serialVersionUID = -8053042720343828502L;
 
 	@ApiModelProperty(value="ID de identificação da versão", name="id", position = 1)
-	public Integer id;
+	public Long id;
 	
 	@ApiModelProperty(value="Nome da versão", name="nome", position = 2)
 	public String nome;

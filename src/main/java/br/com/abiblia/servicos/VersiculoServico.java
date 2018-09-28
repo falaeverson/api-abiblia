@@ -34,7 +34,7 @@ public class VersiculoServico {
 		
 		Page<Versiculo> pageVersiculos = versiculoRepositorio.findAll(Example.of(versiculo), PageDefault.setPageable(request.getPage(), request.getLimit(), request.getCampos(), request.getOrder()));
 		
-		return new PageVersiculoResponse(GenericConvert.convertModelMapperToPagePIER(pageVersiculos, new TypeToken<List<Versiculo>>(){}.getType()));
+		return new PageVersiculoResponse(GenericConvert.convertModelMapperToPageDefault(pageVersiculos, new TypeToken<List<VersiculoResponse>>(){}.getType()));
 		
 	}
 

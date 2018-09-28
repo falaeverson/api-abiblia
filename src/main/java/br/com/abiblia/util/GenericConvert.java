@@ -1,6 +1,5 @@
 package br.com.abiblia.util;
 
-//import static br.com.abiblia.util.ConversoresPIER.buildPagePIER;
 import static br.com.abiblia.util.Conversores.buildPage;
 
 import java.lang.reflect.Type;
@@ -15,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
-//import br.com.conductor.pier.util.PagePIER;
 
 @Ignore
 public class GenericConvert {
@@ -81,7 +78,7 @@ public class GenericConvert {
         return model;
    }
 
-   public static <T, E> PageDTO convertModelMapperToPagePIER(Page<T> page, Type typeDestination) {
+   public static <T, E> PageDTO convertModelMapperToPageDefault(Page<T> page, Type typeDestination) {
 
         if (page != null && typeDestination != null) {
 
@@ -93,7 +90,7 @@ public class GenericConvert {
 
         return null;
    }
-   public static <T, E> PageDTO convertModelMapperToPagePIER(Page<T> page, Type typeDestination, MatchingStrategy strategy) {
+   public static <T, E> PageDTO convertModelMapperToPageDefault(Page<T> page, Type typeDestination, MatchingStrategy strategy) {
 
         if (page != null && typeDestination != null) {
 
@@ -134,7 +131,7 @@ public class GenericConvert {
 
    }
    
-   public static <T, E> PageDTO convertWithMappingToPagePIER(Page<T> page, Type typeDestination, PropertyMap<T, E> mapping) {
+   public static <T, E> PageDTO convertWithMappingToPageDefault(Page<T> page, Type typeDestination, PropertyMap<T, E> mapping) {
 
         if (page != null && typeDestination != null) {
 
@@ -155,17 +152,5 @@ public class GenericConvert {
 
         return modelMapper.map(source, typeDestination);
    }
-   
-//   public static <T, E> PageDefault convertModelMapperToPagePIER(br.com.conductor.pier.groovy.util.page.PagePIERCustom<T> page, Type typeDestination) {
-//
-//        if (page != null && typeDestination != null) {
-//
-//             List<E> arrayList = convertModelMapper(page.getContent(), typeDestination);
-//             Pageable pageable = new PageRequest(page.getNumber(), page.getSize());
-//             Page<E> pageResponse = new PageImpl<>(arrayList, pageable, page.getTotalElements());
-//             return buildPage(pageResponse);
-//        }
-//
-//        return null;
-//   }
+
 }
