@@ -1,11 +1,17 @@
 package org.api.abiblia.resources;
 
+import java.util.List;
+
+import org.api.abiblia.entidades.Versao;
 import org.api.abiblia.requests.GenericRequest;
 import org.api.abiblia.responses.PageVersaoResponse;
 import org.api.abiblia.responses.VersaoResponse;
 import org.api.abiblia.servicos.VersaoServico;
 import org.api.abiblia.util.ConstantesRest;
+import org.api.abiblia.util.GenericConvert;
+import org.api.abiblia.util.PageDefault;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.reflect.TypeToken;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,8 +45,11 @@ public class VersaoResource {
 			@ApiResponse(code = 500, message = "Erro interno do sistema.") })
 	public ResponseEntity<?> listarVersoes(@ModelAttribute(value = "GenericRequest") GenericRequest request) {
 
-		PageVersaoResponse page = varsaoServico.versoes(request);
+		Page<Versao> versoes = varsaoServico.versoes(PageDefault.setPageable(request.getPage(),request.getLimit(), request.getCampos(), request.getOrder()));
 
+		@SuppressWarnings({ "serial", "unchecked" })
+		PageVersaoResponse page = new PageVersaoResponse(GenericConvert.convertModelMapperToPageDefault(versoes, new TypeToken<List<VersaoResponse>>() {}.getType()));
+		
 		return ResponseEntity.ok(page);
 
 	}

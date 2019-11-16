@@ -1,11 +1,17 @@
 package org.api.abiblia.resources;
 
+import java.util.List;
+
+import org.api.abiblia.entidades.Versiculo;
 import org.api.abiblia.requests.VersiculoRequest;
 import org.api.abiblia.responses.PageVersiculoResponse;
 import org.api.abiblia.responses.VersiculoResponse;
 import org.api.abiblia.servicos.VersiculoServico;
 import org.api.abiblia.util.ConstantesRest;
+import org.api.abiblia.util.GenericConvert;
+import org.api.abiblia.util.PageDefault;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.reflect.TypeToken;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,8 +45,13 @@ public class VersiculoResource {
 			@ApiResponse(code = 500, message = "Erro interno do sistema.") })
 	public ResponseEntity<?> listarVersiculos(@ModelAttribute(value = "VersiculoRequest") VersiculoRequest request) {
 
-		PageVersiculoResponse page = versiculoServico.versiculos(request);
+		Versiculo versiculo = GenericConvert.convertModelMapper(request, Versiculo.class);
+		
+		Page<Versiculo> versiculos = versiculoServico.versiculos(versiculo, PageDefault.setPageable(request.getPage(), request.getLimit(), request.getCampos(), request.getOrder()));
 
+		@SuppressWarnings({ "serial", "unchecked" })
+		PageVersiculoResponse page = new PageVersiculoResponse(GenericConvert.convertModelMapperToPageDefault(versiculos, new TypeToken<List<VersiculoResponse>>() {}.getType()));
+		
 		return ResponseEntity.ok(page);
 
 	}

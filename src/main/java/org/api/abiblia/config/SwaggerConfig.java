@@ -21,8 +21,7 @@ public class SwaggerConfig {
 
 		Docket docket = new Docket(DocumentationType.SWAGGER_2);
 
-		docket.select().apis(RequestHandlerSelectors.basePackage("org.api.abiblia")).paths(PathSelectors.any())
-				.build().apiInfo(apiInfo());
+		docket.select().apis(RequestHandlerSelectors.basePackage("org.api.abiblia")).paths(PathSelectors.any()).build().apiInfo(apiInfo());
 
 		return docket;
 	}
@@ -31,8 +30,7 @@ public class SwaggerConfig {
 
 		ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
 
-		apiInfoBuilder.title("API aBíblia").description("Api para bíblia").version("1.0")
-				.contact(contato());
+		apiInfoBuilder.title("API aBíblia").description("Api para bíblia").version("1.0").contact(contato());
 
 		return apiInfoBuilder.build();
 

@@ -1,11 +1,17 @@
 package org.api.abiblia.resources;
 
+import java.util.List;
+
+import org.api.abiblia.entidades.Livro;
 import org.api.abiblia.requests.LivroRequest;
 import org.api.abiblia.responses.LivroResponse;
 import org.api.abiblia.responses.PageLivroResponse;
 import org.api.abiblia.servicos.LivroServico;
 import org.api.abiblia.util.ConstantesRest;
+import org.api.abiblia.util.GenericConvert;
+import org.api.abiblia.util.PageDefault;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.reflect.TypeToken;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +45,12 @@ public class LivroResource {
 			@ApiResponse(code = 500, message = "Erro interno do sistema.") })
 	public ResponseEntity<?> livros(@ModelAttribute(value = "LivroRequest") LivroRequest request) {
 
-		PageLivroResponse page = livroServico.livros(request);
+		Livro livro = GenericConvert.convertModelMapper(request, Livro.class);
+		
+		Page<Livro> livros = livroServico.livros(livro, PageDefault.setPageable(request.getPage(), request.getLimit(), request.getCampos(), request.getOrder()));
+		
+		@SuppressWarnings({ "unchecked", "serial" })
+		PageLivroResponse page = new PageLivroResponse(GenericConvert.convertModelMapperToPageDefault(livros, new TypeToken<List<LivroResponse>>() {}.getType()));
 
 		return ResponseEntity.ok(page);
 
