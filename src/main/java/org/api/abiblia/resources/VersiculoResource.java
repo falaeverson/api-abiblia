@@ -9,7 +9,6 @@ import org.api.abiblia.responses.VersiculoResponse;
 import org.api.abiblia.servicos.VersiculoServico;
 import org.api.abiblia.util.ConstantesRest;
 import org.api.abiblia.util.GenericConvert;
-import org.api.abiblia.util.PageDefault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -47,7 +46,7 @@ public class VersiculoResource {
 
 		Versiculo versiculo = GenericConvert.convertModelMapper(request, Versiculo.class);
 		
-		Page<Versiculo> versiculos = versiculoServico.versiculos(versiculo, PageDefault.setPageable(request.getPage(), request.getLimit(), request.getCampos(), request.getOrder()));
+		Page<Versiculo> versiculos = versiculoServico.versiculos(versiculo, request.pageable());
 
 		@SuppressWarnings({ "serial", "unchecked" })
 		PageVersiculoResponse page = new PageVersiculoResponse(GenericConvert.convertModelMapperToPageDefault(versiculos, new TypeToken<List<VersiculoResponse>>() {}.getType()));

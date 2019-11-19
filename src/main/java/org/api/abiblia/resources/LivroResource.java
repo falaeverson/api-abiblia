@@ -9,7 +9,6 @@ import org.api.abiblia.responses.PageLivroResponse;
 import org.api.abiblia.servicos.LivroServico;
 import org.api.abiblia.util.ConstantesRest;
 import org.api.abiblia.util.GenericConvert;
-import org.api.abiblia.util.PageDefault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -47,7 +46,7 @@ public class LivroResource {
 
 		Livro livro = GenericConvert.convertModelMapper(request, Livro.class);
 		
-		Page<Livro> livros = livroServico.livros(livro, PageDefault.setPageable(request.getPage(), request.getLimit(), request.getCampos(), request.getOrder()));
+		Page<Livro> livros = livroServico.livros(livro, request.pageable());
 		
 		@SuppressWarnings({ "unchecked", "serial" })
 		PageLivroResponse page = new PageLivroResponse(GenericConvert.convertModelMapperToPageDefault(livros, new TypeToken<List<LivroResponse>>() {}.getType()));

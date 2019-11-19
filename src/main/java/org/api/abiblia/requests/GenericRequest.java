@@ -5,6 +5,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import org.api.abiblia.util.PageDefault;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
@@ -30,5 +31,11 @@ public class GenericRequest implements Serializable {
      
      @ApiModelProperty(value="Direção da ordenação dos registros (Default = ASC)", name="order", position=103)
      private Sort.Direction order = Direction.ASC;
+     
+     public PageRequest pageable() {
+    	 
+    	 return PageDefault.setPageable(page, limit, campos, order);
+    	 
+     }
      
 }
