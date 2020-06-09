@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.api.abiblia.entidades.Versao;
 import org.api.abiblia.requests.GenericRequest;
+import org.api.abiblia.responses.LivroResponse;
 import org.api.abiblia.responses.PageVersaoResponse;
+import org.api.abiblia.responses.TotalCapituloResponse;
+import org.api.abiblia.responses.TotalVersiculoResponse;
 import org.api.abiblia.responses.VersaoResponse;
 import org.api.abiblia.servicos.VersaoServico;
 import org.api.abiblia.util.ConstantesRest;
@@ -66,6 +69,36 @@ public class VersaoResource {
 
 		return ResponseEntity.ok(versao);
 
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "{id}/livros/{idLivro}/capitulos", method = RequestMethod.GET)
+	@ApiOperation(value = "Consultar total de capítulos pelo id do livro", notes = "Recurso para consultar a lista de capítulos do livro", response = LivroResponse.class)
+	@ApiResponses({ @ApiResponse(code = 200, message = "Requisição efetuada com sucesso!."),
+		@ApiResponse(code = 400, message = "Requisição inválida."),
+		@ApiResponse(code = 404, message = "Recurso não encontrado."),
+		@ApiResponse(code = 500, message = "Erro interno do sistema.") })
+	public ResponseEntity<?> capitulos(@PathVariable("id") Long id, @PathVariable("idLivro") Long idLivro) {
+		
+		TotalCapituloResponse response = varsaoServico.totalCapitulos(id, idLivro);
+		
+		return ResponseEntity.ok(response);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "{id}/livros/{idLivro}/capitulos/{capitulo}/versiculos", method = RequestMethod.GET)
+	@ApiOperation(value = "Consultar total de capítulos pelo id do livro", notes = "Recurso para consultar a lista de capítulos do livro", response = LivroResponse.class)
+	@ApiResponses({ @ApiResponse(code = 200, message = "Requisição efetuada com sucesso!."),
+		@ApiResponse(code = 400, message = "Requisição inválida."),
+		@ApiResponse(code = 404, message = "Recurso não encontrado."),
+		@ApiResponse(code = 500, message = "Erro interno do sistema.") })
+	public ResponseEntity<?> versiculos(@PathVariable("id") Long id, @PathVariable("idLivro") Long idLivro, @PathVariable("capitulo") Integer capitulo) {
+		
+		TotalVersiculoResponse response = varsaoServico.totalVersiculos(id, idLivro, capitulo);
+		
+		return ResponseEntity.ok(response);
+		
 	}
 
 }
